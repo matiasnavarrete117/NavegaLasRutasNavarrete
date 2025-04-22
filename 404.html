@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Redireccionando...</title>
+  <script>
+    // Obtener el segmento de ruta después del nombre del repositorio
+    const segments = window.location.pathname.split('/');
+    const repo = segments[1]; // El nombre del repositorio (NavegaLasRutasNavarrete)
+    const pathSegments = segments.slice(2);
+    
+    // Almacenar la ruta para que index.html pueda recuperarla
+    sessionStorage.setItem('redirect', pathSegments.join('/'));
+    
+    // Redirigir a la página principal
+    window.location.href = `/${repo}`;
+  </script>
+</head>
+<body>
+  <h2>Redireccionando...</h2>
+  <p>Si no eres redirigido automáticamente, haz clic <a href="https://matiasnavarrete117.github.io/NavegaLasRutasNavarrete">aquí</a></p>
+</body>
+</html>

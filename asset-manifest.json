@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/NavegaLasRutasNavarrete/static/css/main.f62a50eb.css",
+    "main.js": "/NavegaLasRutasNavarrete/static/js/main.944ba111.js",
+    "static/js/453.11a1db37.chunk.js": "/NavegaLasRutasNavarrete/static/js/453.11a1db37.chunk.js",
+    "index.html": "/NavegaLasRutasNavarrete/index.html",
+    "main.f62a50eb.css.map": "/NavegaLasRutasNavarrete/static/css/main.f62a50eb.css.map",
+    "main.944ba111.js.map": "/NavegaLasRutasNavarrete/static/js/main.944ba111.js.map",
+    "453.11a1db37.chunk.js.map": "/NavegaLasRutasNavarrete/static/js/453.11a1db37.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.f62a50eb.css",
+    "static/js/main.944ba111.js"
+  ]
+}
