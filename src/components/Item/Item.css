@@ -1,0 +1,50 @@
+.item-card {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease;
+  }
+  
+  .item-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .item-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+  }
+  
+  .item-info {
+    padding: 1rem;
+  }
+  
+  .item-title {
+    margin: 0 0 0.5rem;
+    font-size: 1.2rem;
+    color: #333;
+  }
+  
+  .item-price {
+    font-weight: bold;
+    color: #222;
+    font-size: 1.1rem;
+    margin: 0.5rem 0;
+  }
+  
+  .item-button {
+    display: block;
+    text-align: center;
+    background: #5e35b1;
+    color: white;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    margin-top: 1rem;
+    transition: background-color 0.3s;
+  }
+  
+  .item-button:hover {
+    background: #4527a0;
+  }
