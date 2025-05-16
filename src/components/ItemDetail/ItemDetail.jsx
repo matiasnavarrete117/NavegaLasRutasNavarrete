@@ -1,17 +1,31 @@
 import { useState } from 'react';
 import ItemCount from '../ItemCount/ItemCount';
+import { useCart } from '../../context/CartContext';
 import './ItemDetail.css';
 
 const ItemDetail = ({ product }) => {
   const [quantityAdded, setQuantityAdded] = useState(0);
+  const { addToCart, cartItems } = useCart();
   
-  const handleAddToCart = (quantity) => {
-    setQuantityAdded(quantity);
-    console.log(`Se agregaron ${quantity} unidades de ${product.title} al carrito`);
-    // En próximas entregas, aquí conectarás con el contexto del carrito
+  const handleAddToCart = (count) => {
+    // Verificar que hay suficiente stock
+    const itemInCart = cartItems.find(item => item.id === product.id);
+    const currentInCart = itemInCart ? itemInCart.quantity : 0;
+    
+    if (currentInCart + count > product.stock) {
+      alert(`Solo puedes agregar ${product.stock - currentInCart} unidades más de este producto.`);
+      return;
+    }
+    
+    addToCart(product, count);
+    setQuantityAdded(count);
   };
 
   if (!product) return null;
+
+  // Corregido: usar el id del producto directamente
+  console.log("ID del producto obtenido:", product.id);
+  console.log("Producto obtenido:", product);
 
   return (
     <div className="item-detail">

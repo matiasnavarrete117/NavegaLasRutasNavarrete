@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { collection, getDocs, query, where } from 'firebase/firestore';
+import { db } from '../../services/firebase/firebaseConfig';
 import ItemList from '../ItemList/ItemList';
-import { getProducts } from '../../services/products';
 import './ItemListContainer.css';
 
 const ItemListContainer = ({ greeting }) => {
@@ -10,40 +11,34 @@ const ItemListContainer = ({ greeting }) => {
   const { categoryId } = useParams();
 
   useEffect(() => {
-    setLoading(true);
-    
-    
-    getProducts()
-      .then(items => {
-        if (categoryId) {
-          // Productos por categoría con categoryId
-          const filtered = items.filter(
-            product => product.category === categoryId
-          );
-          setProducts(filtered);
-        } else {
-          // Muestra todos los productos
-          setProducts(items);
-        }
-      })
-      .catch(error => console.error("Error cargando productos:", error))
-      .finally(() => setLoading(false));
-  }, [categoryId]); // Re-ejecuta cuando cambia la categoría
+    const fetchProducts = async () => {
+      setLoading(true);
+      let productsCollection = collection(db, 'products');
+      let q = productsCollection;
+
+      // Si hay categoría, filtra por categoría
+      if (categoryId) {
+        q = query(productsCollection, where('category', '==', categoryId));
+      }
+
+      const productsSnapshot = await getDocs(q);
+      const productsList = productsSnapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      }));
+      setProducts(productsList);
+      setLoading(false);
+    };
+
+    fetchProducts();
+  }, [categoryId]);
+
+  if (loading) return <div className="loader">Cargando productos...</div>;
 
   return (
     <div className="item-list-container">
       {greeting && <h2 className="greeting">{greeting}</h2>}
-      <h2 className="category-title">
-        {categoryId 
-          ? `${categoryId.charAt(0).toUpperCase() + categoryId.slice(1)}` 
-          : 'Todos nuestros productos'}
-      </h2>
-      
-      {loading ? (
-        <div className="loader">Cargando productos...</div>
-      ) : (
-        <ItemList products={products} />
-      )}
+      <ItemList products={products} />
     </div>
   );
 };
